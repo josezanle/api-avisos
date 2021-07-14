@@ -2,9 +2,12 @@ const express = require("express");
 require("dotenv").config();
 const { dbConnection } = require("./config/db");
 const routes = require("./routes");
+var cors = require("cors");
 
 // init
 const app = express();
+
+app.use(cors());
 
 // base de datos
 dbConnection();
@@ -13,7 +16,7 @@ dbConnection();
 app.use(express.json());
 
 // habilitando el routing
-app.use('/', routes())
+app.use("/", routes());
 
 // inicio de la REST
 app.get("/", (req, res) => {
