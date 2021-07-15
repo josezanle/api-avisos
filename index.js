@@ -17,13 +17,14 @@ dbConnection();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// habilitando el routing
-app.use("/", routes());
-
 // inicio de la REST
 app.get("/", (req, res) => {
   res.send("Hola desde el inicio");
 });
+
+// habilitando el routing
+app.use("/", routes());
+
 
 // seteo del puerto
 const port = process.env.PORT || "0.0.0.0";
