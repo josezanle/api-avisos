@@ -39,7 +39,7 @@ exports.getAviso = async (req, res) => {
     const aviso = await Aviso.findById(id);
     res.status(200).json({
       ok: true,
-      mensaje: "Consulta exitosa, resutado:",
+      mensaje: "Consulta exitosa, resultado:",
       body: aviso,
     });
   } catch (error) {
