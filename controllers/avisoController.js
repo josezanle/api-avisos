@@ -53,10 +53,10 @@ exports.getAviso = async(req,res) => {
 
 // =======================================================================
 
-// get aviso por :id
+// put aviso por :id
 exports.actualizarAviso = async(req,res) => {
     try {
-        const aviso = await Aviso.findOneAndUpdate({_id:req.params.id}, req.body,{
+        const aviso = await Aviso.findByIdAndUpdate({_id:req.params.id}, req.body,{
             new:true
         })
         res.status(201).json(aviso)
@@ -72,11 +72,14 @@ exports.actualizarAviso = async(req,res) => {
 
 // =======================================================================
 
-// get aviso por :id
+// delete aviso por :id
 exports.borrarAviso = async(req,res) => {
     try {
-        const aviso = await Aviso.findOneAndDelete({_id:req.params.id})
-        res.status(201).json(aviso)
+        const aviso = await Aviso.findByIdAndDelete({_id:req.params.id})
+        res.status(201).json({
+            ok:true,
+            mensaje:"Aviso Borrado"
+        })
         
     } catch (error) {
         res.status(400).json({
