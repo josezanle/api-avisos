@@ -37,7 +37,11 @@ exports.getAviso = async (req, res) => {
   const { id } = req.params;
   try {
     const aviso = await Aviso.findById(id);
-    res.status(200).json(aviso);
+    res.status(200).json({
+      ok: true,
+      mensaje: "Consulta exitosa, resutado:",
+      body: aviso,
+    });
   } catch (error) {
     res.status(400).json({
       ok: false,
@@ -73,8 +77,11 @@ exports.actualizarAviso = async (req, res) => {
 exports.borrarAviso = async (req, res) => {
   const { id } = req.params;
   try {
-    const aviso = await Aviso.findOneAndDelete({_id:id});
-    res.status(200).json(aviso);
+    const aviso = await Aviso.findOneAndDelete({ _id: id });
+    res.status(200).json({
+      ok: true,
+      mensaje: "Se ha borrado el aviso:",
+    });
   } catch (error) {
     res.status(400).json({
       ok: false,
