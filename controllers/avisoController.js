@@ -34,8 +34,9 @@ exports.getAvisos = async (req, res) => {
 
 // get aviso por :id
 exports.getAviso = async (req, res) => {
+  const { id } = req.params;
   try {
-    const aviso = await Aviso.findById({ _id: req.params.id });
+    const aviso = await Aviso.findById(id);
     res.status(200).json(aviso);
   } catch (error) {
     res.status(400).json({

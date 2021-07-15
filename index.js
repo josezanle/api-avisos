@@ -13,6 +13,8 @@ app.use(cors());
 dbConnection();
 
 // parseo de data
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // habilitando el routing
