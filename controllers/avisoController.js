@@ -35,7 +35,7 @@ exports.getAvisos = async (req, res) => {
 // get aviso por :id
 exports.getAviso = async (req, res) => {
   try {
-    const aviso = await Aviso.findById({_id:req.params.id});
+    const aviso = await Aviso.findById({ _id: req.params.id });
     res.status(200).json(aviso);
   } catch (error) {
     res.status(400).json({
@@ -70,13 +70,10 @@ exports.actualizarAviso = async (req, res) => {
 
 // delete aviso por :id
 exports.borrarAviso = async (req, res) => {
-  const { id } = request.params;
+  const { id } = req.params;
   try {
-    const aviso = await Aviso.findByIdAndRemove(id);
-    res.status(200).json({
-      ok: true,
-      mensaje: "Aviso Borrado",
-    });
+    const aviso = await Aviso.findByIdAndDelete(id);
+    res.status(200).json(aviso);
   } catch (error) {
     res.status(400).json({
       ok: false,
