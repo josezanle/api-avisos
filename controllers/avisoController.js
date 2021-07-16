@@ -37,11 +37,18 @@ exports.getAviso = async (req, res) => {
   const { id } = req.params;
   try {
     const aviso = await Aviso.findById(id);
-    res.status(200).json({
-      ok: true,
-      mensaje: "Consulta exitosa, resultado:",
-      body: aviso,
-    });
+    if (res.body === null) {
+      res.status(500).json({
+        ok: true,
+        mensaje: "El aviso ha sido Borrado o no existe con ese id",
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        mensaje: "Consulta exitosa, resultado:",
+        body: aviso,
+      });
+    }
   } catch (error) {
     res.status(400).json({
       ok: false,
@@ -54,15 +61,20 @@ exports.getAviso = async (req, res) => {
 
 // put aviso por :id
 exports.actualizarAviso = async (req, res) => {
+  const { id } = req.params;
   try {
-    const aviso = await Aviso.findByIdAndUpdate(
+    const aviso = await Aviso.findOneAndUpdate(
       { _id: req.params.id },
       req.body,
       {
         new: true,
       }
     );
-    res.status(200).json(aviso);
+    res.status(200).json({
+      ok: true,
+      mensaje: `Actualizacion exitosa, resultado:`,
+      body: aviso,
+    });
   } catch (error) {
     res.status(400).json({
       ok: false,
@@ -77,12 +89,12 @@ exports.actualizarAviso = async (req, res) => {
 exports.borrarAviso = async (req, res) => {
   const { id } = req.params;
   try {
-    const aviso = await Aviso.findByIdAndRemove({
-      where: {
-        _id: id,
-      },
+    const aviso = await Aviso.findByIdAndRemove(id);
+    res.status(200).json({
+      ok: true,
+      mensaje: `Se ha borrado el aviso: ${aviso.titulo}, con el Id: ${aviso.id}`,
     });
-    res.status(200).json(aviso);
+    console.log(JSON.stringify(res, null, 3));
   } catch (error) {
     res.status(400).json({
       ok: false,
