@@ -77,11 +77,12 @@ exports.actualizarAviso = async (req, res) => {
 exports.borrarAviso = async (req, res) => {
   const { id } = req.params;
   try {
-    const aviso = await Aviso.findOneAndDelete(id );
-    res.status(200).json({
-      ok: true,
-      mensaje: "Se ha borrado el aviso:",
+    const aviso = await Aviso.findByIdAndRemove({
+      where: {
+        _id: id,
+      },
     });
+    res.status(200).json(aviso);
   } catch (error) {
     res.status(400).json({
       ok: false,
