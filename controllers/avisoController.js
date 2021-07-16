@@ -77,7 +77,7 @@ exports.actualizarAviso = async (req, res) => {
 exports.borrarAviso = async (req, res) => {
   const { id } = req.params;
   try {
-    const aviso = await Aviso.findOneAndDelete({ _id: id });
+    const aviso = await Aviso.findOneAndDelete(id );
     res.status(200).json({
       ok: true,
       mensaje: "Se ha borrado el aviso:",
